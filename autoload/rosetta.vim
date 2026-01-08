@@ -238,6 +238,20 @@ function! s:to_snake_case(text) abort
   return l:text
 endfunction
 
+function! s:to_camel_case(text) abort
+  let l:words = split(a:text, '[-_]\+')
+  let l:camel = []
+  for l:i in range(len(l:words))
+    let l:word = l:words[l:i]
+    if l:i == 0
+      call add(l:camel, tolower(l:word))
+    else
+      call add(l:camel, toupper(l:word[0]) . tolower(l:word[1:]))
+    endif
+  endfor
+  return join(l:camel, '')
+endfunction
+
 function! rosetta#complete_name() abort
   let l:line = getline('.')
   let l:start = col('.') - 1
@@ -251,16 +265,18 @@ function! rosetta#complete_name() abort
   let l:items = s:translate_text_list(l:source_lang, l:target_lang, l:base)
 
   let l:completions = []
-  let g:hoge = l:items
   for l:item in l:items[0]
     if type(l:item) == v:t_list && len(l:item) > 0 && type(l:item[0]) == v:t_string
       let l:translation = l:item[0]
-      let l:snake = s:to_snake_case(l:translation)
-      if !empty(l:snake)
-        call add(l:completions, l:snake)
+      if empty(l:translation)
+        continue
       endif
+      let l:snake = s:to_snake_case(l:translation)
+      call add(l:completions, l:snake)
+      call add(l:completions, toupper(l:snake))
+      call add(l:completions, s:to_camel_case(l:translation))
     endif
   endfor
-  call complete(l:start + 1, l:completions)
+  call complete(l:start + 1, uniq(l:completions))
   return ''
 endfunction
