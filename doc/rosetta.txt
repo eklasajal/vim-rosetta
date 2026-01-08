@@ -1,0 +1,249 @@
+*rosetta.txt*  Translation features for code comments and variable naming
+
+Author:  Yasuhiro Matsumoto <https://github.com/mattn>
+License: MIT License
+
+==============================================================================
+CONTENTS                                                    *rosetta-contents*
+
+    1. Introduction .............................. |rosetta-introduction|
+    2. Requirements .............................. |rosetta-requirements|
+    3. Features .................................. |rosetta-features|
+    4. Commands .................................. |rosetta-commands|
+    5. Mappings .................................. |rosetta-mappings|
+    6. Configuration ............................. |rosetta-configuration|
+    7. Functions ................................. |rosetta-functions|
+
+==============================================================================
+INTRODUCTION                                            *rosetta-introduction*
+
+vim-rosetta is a Vim plugin that provides translation features for code
+comments and variable naming using Google Translate API. It supports:
+
+- Comment translation with popup display
+- Word/selection translation
+- Automatic translation on cursor hold
+- Variable name completion in multiple formats
+
+All translation operations are performed asynchronously using |job_start()|,
+so Vim won't block during translation.
+
+==============================================================================
+REQUIREMENTS                                            *rosetta-requirements*
+
+- Vim 8.1+ with |+popup| and |+job| features
+- `curl` command
+
+==============================================================================
+FEATURES                                                    *rosetta-features*
+
+Comment Translation~
+    Translate code comments under the cursor to any language. Supports
+    multi-line comments and various comment styles (|//|, |/* */|, |#|, |"|).
+
+Word/Selection Translation~
+    Translate the word under cursor or selected text in visual mode.
+
+Auto Translation~
+    Automatically translate comments when cursor stops on them.
+
+Variable Name Completion~
+    Japanese to English translation for variable naming with multiple format
+    options (snake_case, UPPER_CASE, camelCase, PascalCase).
+
+==============================================================================
+COMMANDS                                                    *rosetta-commands*
+
+:RosettaTranslateComment                            *:RosettaTranslateComment*
+    Translate the comment under the cursor and display the result in a popup
+    window. The plugin detects comment boundaries automatically using syntax
+    highlighting.
+
+:RosettaTranslateAt                                      *:RosettaTranslateAt*
+    Translate the word under cursor and display the result in a popup window.
+
+==============================================================================
+MAPPINGS                                                    *rosetta-mappings*
+
+<Plug>(rosetta-translate-comment)          *<Plug>(rosetta-translate-comment)*
+    Normal mode mapping to translate comment under cursor.
+    Default mapping: |<Leader>tc|
+
+<Plug>(rosetta-translate-at)                    *<Plug>(rosetta-translate-at)*
+    Normal/Visual mode mapping to translate word or selection.
+    Default mapping: |<Leader>tt|
+
+<Plug>(rosetta-complete-name)                  *<Plug>(rosetta-complete-name)*
+    Insert mode mapping to trigger variable name completion.
+    Default mapping: |<C-x><C-t>|
+
+Default Mappings~
+
+Normal mode:
+    <Leader>tc              Translate comment under cursor
+    <Leader>tt              Translate word under cursor
+
+Visual mode:
+    <Leader>tt              Translate selected text
+
+Insert mode:
+    <C-x><C-t>              Complete variable name with translation
+
+To disable default mappings and define your own:
+>
+    " Comment translation
+    nmap <C-t> <Plug>(rosetta-translate-comment)
+
+    " Word/selection translation
+    nmap <C-w> <Plug>(rosetta-translate-at)
+    xmap <C-w> <Plug>(rosetta-translate-at)
+<
+
+==============================================================================
+CONFIGURATION                                          *rosetta-configuration*
+
+g:rosetta_target_lang                                  *g:rosetta_target_lang*
+    Target language for translation. Default: 'ja' (Japanese)
+    
+    Supported language codes: 'en', 'ja', 'zh-CN', 'ko', 'es', 'fr', 'de', etc.
+>
+    let g:rosetta_target_lang = 'en'
+<
+
+g:rosetta_popup_max_width                          *g:rosetta_popup_max_width*
+    Maximum width of the popup window. Default: 80
+>
+    let g:rosetta_popup_max_width = 100
+<
+
+g:rosetta_trim_spaces                                  *g:rosetta_trim_spaces*
+    Collapse multiple spaces into single space. Default: 1 (enabled)
+>
+    let g:rosetta_trim_spaces = 0  " Keep original spacing
+<
+
+g:rosetta_strip_c_style                              *g:rosetta_strip_c_style*
+    Remove leading `*` from each line in C-style block comments.
+    Default: 0 (disabled)
+>
+    let g:rosetta_strip_c_style = 1
+<
+    Example:
+>
+    /*
+     * This is a function
+     * It does something
+     */
+<
+    Will be extracted as:
+>
+    This is a function
+    It does something
+<
+
+g:rosetta_translate_comment_auto          *g:rosetta_translate_comment_auto*
+    Enable automatic translation when cursor stops on a comment.
+    Default: 0 (disabled)
+>
+    let g:rosetta_translate_comment_auto = 1
+<
+
+==============================================================================
+FUNCTIONS                                                  *rosetta-functions*
+
+rosetta#translate_comment()                      *rosetta#translate_comment()*
+    Translate the comment under the cursor. This function:
+    1. Detects if cursor is on a comment using syntax highlighting
+    2. Extracts the comment text (supports multi-line)
+    3. Sends text to Google Translate API via curl (asynchronously)
+    4. Displays translation in a popup window
+
+rosetta#translate_at({select})                      *rosetta#translate_at()*
+    Translate word or selection.
+    
+    Parameters:~
+        {select}    If 1, translate visual selection. If 0, translate word
+                    under cursor.
+
+rosetta#translate_comment_auto()          *rosetta#translate_comment_auto()*
+    Auto-translate comment on cursor hold. Used internally when
+    |g:rosetta_translate_comment_auto| is enabled.
+
+rosetta#complete_name()                              *rosetta#complete_name()*
+    Complete variable name with translation. Extracts Japanese text before
+    cursor, translates to English, and provides completion candidates in
+    multiple naming formats:
+    
+    - snake_case (e.g., hello_world)
+    - UPPER_CASE (e.g., HELLO_WORLD)
+    - camelCase (e.g., helloWorld)
+    - PascalCase (e.g., HelloWorld)
+
+==============================================================================
+EXAMPLES                                                    *rosetta-examples*
+
+Basic Usage~
+>
+    " Place cursor on a comment and press <Leader>tc
+    // このコメントを翻訳する
+    
+    " Place cursor on a word and press <Leader>tt
+    hello
+    
+    " In insert mode, type Japanese and press <C-x><C-t>
+    こんにちは世界<C-x><C-t>
+    " Completion candidates:
+    " hello_world, HELLO_WORLD, helloWorld, HelloWorld
+<
+
+Custom Configuration~
+>
+    " Translate to English instead of Japanese
+    let g:rosetta_target_lang = 'en'
+    
+    " Enable auto-translation
+    let g:rosetta_translate_comment_auto = 1
+    
+    " Strip asterisks from C-style comments
+    let g:rosetta_strip_c_style = 1
+    
+    " Wider popup window
+    let g:rosetta_popup_max_width = 120
+    
+    " Custom key mappings
+    nmap <C-t> <Plug>(rosetta-translate-comment)
+    nmap <C-w> <Plug>(rosetta-translate-at)
+    xmap <C-w> <Plug>(rosetta-translate-at)
+<
+
+==============================================================================
+HOW IT WORKS                                            *rosetta-how-it-works*
+
+Comment Translation~
+    1. Detect if cursor is on a comment using |synID()| and syntax name
+    2. Extract comment text by scanning adjacent lines with same syntax group
+    3. Strip comment markers (|//|, |/*|, |*/|, |#|, |"|)
+    4. Send to Google Translate API asynchronously via |job_start()|
+    5. Parse JSON response and display in popup window via |popup_atcursor()|
+
+Word/Selection Translation~
+    1. Extract word via |expand('<cword>')| or visual selection
+    2. Send to Google Translate API asynchronously
+    3. Display translation in popup window
+
+Variable Name Completion~
+    1. Extract text before cursor position
+    2. Send to Google Translate API asynchronously
+    3. Convert result to multiple naming conventions
+    4. Provide as completion candidates via |complete()|
+
+All HTTP requests use `curl` with |job_start()| for non-blocking operation.
+
+==============================================================================
+ABOUT                                                          *rosetta-about*
+
+Repository:  https://github.com/mattn/vim-rosetta
+Author:      Yasuhiro Matsumoto (a.k.a. mattn)
+License:     MIT License
+
+vim:tw=78:ts=8:ft=help:norl:
