@@ -107,7 +107,7 @@ function! s:comment_at_cursor() abort
     endif
   endfor
 
-  let l:comment = join(l:lines, ' ')
+  let l:comment = join(l:lines, "\n")
   let l:comment = trim(l:comment)
 
   " Detect comment type and strip markers
