@@ -115,6 +115,10 @@ function! s:comment_at_cursor() abort
     " Block comment /* ... */
     let l:comment = substitute(l:comment, '^/\*\+\s*', '', '')
     let l:comment = substitute(l:comment, '\s*\*\+/$', '', '')
+    if get(g:, 'comment_translate_strip_c_style', 0)
+      " Strip leading * from each line
+      let l:comment = substitute(l:comment, '\n\s*\*\+\s*', '\n', 'g')
+    endif
   elseif l:comment =~# '^//'
     " Line comment //
     let l:comment = substitute(l:comment, '^\(//\+\s*\)\|\n//\+\s*', '\n', 'g')

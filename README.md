@@ -75,6 +75,27 @@ Control whether to collapse multiple spaces into single space (default: 1):
 let g:comment_translate_trim_spaces = 0  " Keep original spacing
 ```
 
+### Strip C-Style Comment Asterisks
+
+Remove leading `*` from each line in C-style block comments (default: 0):
+
+```vim
+let g:comment_translate_strip_c_style = 1
+```
+
+Example:
+```c
+/*
+ * hogehoge
+ * hogehoge
+ */
+```
+Will be extracted as:
+```
+hogehoge
+hogehoge
+```
+
 ### Custom Key Mapping
 
 Disable the default mapping and set your own:
