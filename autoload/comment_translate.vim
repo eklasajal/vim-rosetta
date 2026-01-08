@@ -1,3 +1,30 @@
+function! s:nr2hex(nr) abort
+  let n = a:nr
+  let r = ''
+  while n
+    let r = '0123456789ABCDEF'[n % 16] . r
+    let n = n / 16
+  endwhile
+  return r
+endfunction
+
+function! s:urlencode(items) abort
+  let ret = ''
+  let items = iconv(a:items, &enc, 'utf-8')
+  let len = strlen(items)
+  let i = 0
+  while i < len
+    let ch = items[i]
+    if ch =~# '[0-9A-Za-z-._~]'
+      let ret .= ch
+    else
+      let ret .= '%' . substitute('0' . s:nr2hex(char2nr(ch)), '^.*\(..\)$', '\1', '')
+    endif
+    let i = i + 1
+  endwhile
+  return ret
+endfunction
+
 function! s:comment_at_cursor() abort
   let l:line = line('.')
   let l:col = col('.')
@@ -46,19 +73,16 @@ function! s:translate_text(text, ...) abort
   if empty(a:text)
     return ''
   endif
-  let l:target_lang = a:0 > 0 ? a:1 : g:comment_translate_target_lang
+  let l:target_lang = a:0 > 0 ? a:1 : get(g:, 'comment_translate_target_lang', 'ja')
   let l:source_lang = 'auto'
-  let l:encoded_text = substitute(a:text, ' ', '%20', 'g')
-  let l:encoded_text = substitute(l:encoded_text, '"', '%22', 'g')
-  let l:encoded_text = substitute(l:encoded_text, "'", '%27', 'g')
-  let l:encoded_text = substitute(l:encoded_text, '&', '%26', 'g')
+  let l:encoded_text = s:urlencode(a:text)
 
   let l:url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' . l:source_lang . '&tl=' . l:target_lang . '&dt=t&q=' . l:encoded_text
   let l:response = system('curl -s "' . l:url . '"')
   if v:shell_error != 0
     return 'Translation error'
   endif
-  let l:result = matchstr(l:response, '^\\[\\[\\["\zs[^"]*')
+  let l:result = matchstr(l:response, '^\[\[\["\zs[^"]*')
   return empty(l:result) ? 'Translation failed' : l:result
 endfunction
 
