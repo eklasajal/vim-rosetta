@@ -8,7 +8,7 @@ A Vim plugin that provides translation features for code comments and variable n
 - **Word/Selection Translation**: Translate the word under cursor or selected text
 - **Buffer Translation**: Translate entire buffer and display in a new split window
 - **Auto Translation**: Automatically translate comments on cursor hold
-- **Variable Name Completion**: Japanese to English translation for variable naming (snake_case, UPPER_CASE, camelCase, PascalCase)
+- **Variable Name Completion**: Japanese to English translation for variable naming (`snake_case`, `UPPER_CASE`, `camelCase`, `PascalCase`)
 - Supports multi-line comments
 - Works with various comment styles (`//`, `/* */`, `#`, `"`)
 
@@ -162,10 +162,10 @@ Example:
 - Type: `こんにちは世界`
 - Press: `<C-x><C-t>`
 - Completion options:
-  - `hello_world` (snake_case)
-  - `HELLO_WORLD` (UPPER_CASE)
-  - `helloWorld` (camelCase)
-  - `HelloWorld` (PascalCase)
+  - `hello_world` (`snake_case`)
+  - `HELLO_WORLD` (`UPPER_CASE`)
+  - `helloWorld` (`camelCase`)
+  - `HelloWorld` (`PascalCase`)
 
 ## How It Works
 
@@ -194,7 +194,7 @@ https://github.com/user-attachments/assets/5573ea0c-9e63-4fc5-9127-55de81b48861
 
 1. Extracts Japanese text before cursor
 2. Translates to English using Google Translate API
-3. Converts to multiple naming formats (snake_case, UPPER_CASE, camelCase, PascalCase)
+3. Converts to multiple naming formats (`snake_case`, `UPPER_CASE`, `camelCase`, `PascalCase`)
 4. Provides as completion candidates
 
 ## License
