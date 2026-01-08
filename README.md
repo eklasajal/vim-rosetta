@@ -41,6 +41,8 @@ git clone https://github.com/mattn/vim-rosetta.git
 
 ### Comment Translation
 
+https://github.com/user-attachments/assets/668b9c3c-1996-4a66-9aa9-ee92187963eb
+
 Place your cursor on a comment and run:
 
 ```vim
